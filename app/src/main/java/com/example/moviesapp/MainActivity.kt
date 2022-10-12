@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.moviesapp.databinding.ActivityMainBinding
+import com.example.moviesapp.utils.Constants.Companion.API_KEY
 import com.example.moviesapp.view.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 

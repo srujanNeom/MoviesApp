@@ -1,5 +1,6 @@
 package com.example.moviesapp.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,20 +16,22 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val moviesRepository: HomeRepository) :
     ViewModel() {
 
-    val popularMovies: MutableLiveData<Resource<MoviesInfo>> = MutableLiveData()
+    private val _popularMovies = MutableLiveData<Resource<MoviesInfo>>()
+    val popularMovies: LiveData<Resource<MoviesInfo>> = _popularMovies
 
     fun getPopularMovies() = viewModelScope.launch {
-        popularMovies.postValue(Resource.Loading())
+        _popularMovies.postValue(Resource.Loading())
         val response = moviesRepository.getAllMovies()
-        popularMovies.postValue(handlePopularMoviesResponse(response))
+        handlePopularMoviesResponse(response)
     }
 
-    private fun handlePopularMoviesResponse(response: Response<MoviesInfo>): Resource<MoviesInfo> {
+    private fun handlePopularMoviesResponse(response: Response<MoviesInfo>) {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                return Resource.Success(resultResponse)
+                _popularMovies.postValue(Resource.Success(resultResponse))
             }
+        } else {
+            _popularMovies.postValue(Resource.Error(response.message()))
         }
-        return Resource.Error(response.message())
     }
 }

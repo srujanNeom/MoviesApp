@@ -1,5 +1,6 @@
 package com.example.moviesapp.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,20 +15,22 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailsViewModel @Inject constructor(private val detailsRepo: DetailsRepository) :
     ViewModel() {
-    val movieDetails: MutableLiveData<Resource<MovieDetails>> = MutableLiveData()
+    private val _movieDetails = MutableLiveData<Resource<MovieDetails>>()
+    val movieDetails: LiveData<Resource<MovieDetails>> = _movieDetails
 
     fun getMovieDetails(movieId: Any) = viewModelScope.launch {
-        movieDetails.postValue(Resource.Loading())
+        _movieDetails.postValue(Resource.Loading())
         val response = detailsRepo.getMovieDetails(movieId)
-        movieDetails.postValue(handleMovieDetailsResponse(response))
+        handleMovieDetailsResponse(response)
     }
 
-    private fun handleMovieDetailsResponse(response: Response<MovieDetails>): Resource<MovieDetails> {
+    private fun handleMovieDetailsResponse(response: Response<MovieDetails>) {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                return Resource.Success(resultResponse)
+                _movieDetails.postValue(Resource.Success(resultResponse))
             }
+        } else {
+            _movieDetails.postValue(Resource.Error(response.message()))
         }
-        return Resource.Error(response.message())
     }
 }
