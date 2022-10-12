@@ -1,0 +1,8 @@
+
+<resources>
+    <attr name="colorApp_background_color" format="color" />
+    <attr name="colorOnApp_background_color" format="color" />
+    <attr name="colorApp_background_colorContainer" format="color" />
+    <attr name="colorOnApp_background_colorContainer" format="color" />
+    <attr name="harmonizeApp_background_color" format="boolean" />
+</resources>

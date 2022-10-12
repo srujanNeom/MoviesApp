@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="movie_item_height">150dp</dimen>
+    <dimen name="movie_title_height">30dp</dimen>
+</resources>
