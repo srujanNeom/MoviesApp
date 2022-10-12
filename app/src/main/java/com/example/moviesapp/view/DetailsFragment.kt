@@ -17,10 +17,20 @@ import com.example.moviesapp.viewmodel.DetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailsFragment(private val selectedMovieId: Int) : Fragment() {
+class DetailsFragment : Fragment() {
 
     private lateinit var detailsBinding: FragmentDetailsBinding
     private val viewModel by viewModels<DetailsViewModel>()
+    private lateinit var selectedMovieId: Any
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let { args ->
+            args.getInt("movie_id").let { id ->
+                selectedMovieId = id
+            }
+        }
+    }
 
     private fun showProgressBar() {
         detailsBinding.detailsProgressBar.visibility = View.VISIBLE

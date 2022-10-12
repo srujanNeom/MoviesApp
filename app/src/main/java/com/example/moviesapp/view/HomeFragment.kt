@@ -8,16 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.moviesapp.MainActivity
+import com.example.moviesapp.R
 import com.example.moviesapp.databinding.FragmentHomeBinding
 import com.example.moviesapp.utils.OnItemClickListener
 import com.example.moviesapp.utils.Resource
 import com.example.moviesapp.view.adapter.MovieAdapter
 import com.example.moviesapp.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.WithFragmentBindings
 
-@WithFragmentBindings
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
@@ -69,15 +67,18 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
-
     }
 
     private fun setUpRecyclerView() {
         adapter = MovieAdapter(requireContext(), object :
             OnItemClickListener {
             override fun onItemClick(movieId: Int) {
-                (activity as MainActivity).changeFragment(DetailsFragment(movieId))
+                val bundle = Bundle()
+                bundle.putInt("movie_id", movieId)
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.main_frame, DetailsFragment::class.java, bundle)
+                    ?.addToBackStack("DetailsFragment")
+                    ?.commit()
             }
         })
 

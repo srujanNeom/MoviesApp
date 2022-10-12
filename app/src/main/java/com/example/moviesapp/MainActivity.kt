@@ -3,9 +3,7 @@ package com.example.moviesapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import com.example.moviesapp.databinding.ActivityMainBinding
-import com.example.moviesapp.utils.Constants.Companion.API_KEY
 import com.example.moviesapp.view.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,14 +16,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        changeFragment(HomeFragment())
+        init()
     }
 
-    fun changeFragment(fragmentToChange: Fragment) {
-        supportFragmentManager.beginTransaction().apply {
-            replace(mainBinding.mainFrame.id, fragmentToChange)
-            addToBackStack(null)
-            commit()
+    private fun init() {
+        if (supportFragmentManager.fragments.size == 0) {
+            supportFragmentManager.beginTransaction()
+                .replace(mainBinding.mainFrame.id, HomeFragment())
+                .commit()
         }
     }
 }
