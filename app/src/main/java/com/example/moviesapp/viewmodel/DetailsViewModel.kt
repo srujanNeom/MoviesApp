@@ -18,7 +18,7 @@ class DetailsViewModel @Inject constructor(private val detailsRepo: DetailsRepos
     private val _movieDetails = MutableLiveData<Resource<MovieDetails>>()
     val movieDetails: LiveData<Resource<MovieDetails>> = _movieDetails
 
-    fun getMovieDetails(movieId: Any) = viewModelScope.launch {
+    fun getMovieDetails(movieId: Int) = viewModelScope.launch {
         _movieDetails.postValue(Resource.Loading())
         val response = detailsRepo.getMovieDetails(movieId)
         handleMovieDetailsResponse(response)

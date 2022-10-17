@@ -23,7 +23,7 @@ interface MoviesApi {
     @GET(MOVIE_DETAILS_END_POINT)
     suspend fun getMovieDetails(
         @Path("ID")
-        id: Any,
+        id: Int,
         @Query("api_key")
         apikey: String = API_KEY,
         @Query("language")
