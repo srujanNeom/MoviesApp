@@ -15,22 +15,15 @@ import com.example.moviesapp.utils.Constants.Companion.IMAGE_BASE_URL
 import com.example.moviesapp.utils.Resource
 import com.example.moviesapp.viewmodel.DetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.navigation.fragment.navArgs
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
 
     private lateinit var detailsBinding: FragmentDetailsBinding
     private val viewModel by viewModels<DetailsViewModel>()
-    private lateinit var selectedMovieId: Any
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let { args ->
-            args.getInt("movie_id").let { id ->
-                selectedMovieId = id
-            }
-        }
-    }
+    private var selectedMovieId: Int = 0
+    private val safeArgs: DetailsFragmentArgs by navArgs()
 
     private fun showProgressBar() {
         detailsBinding.detailsProgressBar.visibility = View.VISIBLE
@@ -53,6 +46,8 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        selectedMovieId = safeArgs.movieId
+
         viewModel.getMovieDetails(selectedMovieId)
 
         viewModel.movieDetails.observe(viewLifecycleOwner) { response ->

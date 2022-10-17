@@ -12,7 +12,6 @@ import com.example.moviesapp.model.MovieInfoModel
 import com.example.moviesapp.utils.Constants.Companion.IMAGE_BASE_URL
 import com.example.moviesapp.utils.OnItemClickListener
 
-
 class MovieAdapter(
     private val context: Context,
     private val listener: OnItemClickListener,

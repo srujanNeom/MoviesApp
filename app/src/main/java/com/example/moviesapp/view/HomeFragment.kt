@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.moviesapp.R
 import com.example.moviesapp.databinding.FragmentHomeBinding
 import com.example.moviesapp.utils.OnItemClickListener
 import com.example.moviesapp.utils.Resource
@@ -20,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var homeBinding: FragmentHomeBinding
+
     private lateinit var adapter: MovieAdapter
     private val viewModel by viewModels<HomeViewModel>()
 
@@ -73,12 +74,8 @@ class HomeFragment : Fragment() {
         adapter = MovieAdapter(requireContext(), object :
             OnItemClickListener {
             override fun onItemClick(movieId: Int) {
-                val bundle = Bundle()
-                bundle.putInt("movie_id", movieId)
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.main_frame, DetailsFragment::class.java, bundle)
-                    ?.addToBackStack("DetailsFragment")
-                    ?.commit()
+                val directions = HomeFragmentDirections.actionHomeToDetails(movieId = movieId)
+                findNavController().navigate(directions)
             }
         })
 

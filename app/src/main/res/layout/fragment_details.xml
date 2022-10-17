@@ -1,190 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.DetailsFragment">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/details_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:trackColor="@color/app_background_color" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/details_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/details_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <ImageView
+            android:id="@+id/movie_poster"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="center"
+            app:layout_constraintHeight_percent="0.65"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:trackColor="@color/app_background_color" />
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/img_close"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="24dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:background="@drawable/duration_bg"
+            android:drawableStart="@drawable/ic_run_time"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:padding="@dimen/padding_10"
+            android:textAlignment="center"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="15sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UnusedAttribute" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/details_view"
+            android:id="@+id/constraint_desc"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
+            android:layout_height="0dp"
+            android:background="@drawable/gradient_bg"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.5"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/movie_poster"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:scaleType="center"
-                app:layout_constraintHeight_percent="0.65"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
-
-            <ImageView
-                android:id="@+id/img_close"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_margin="24dp"
-                android:src="@android:drawable/ic_menu_close_clear_cancel"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+            app:layout_constraintRight_toRightOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_duration"
+                android:id="@+id/tv_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="24dp"
-                android:background="@drawable/duration_bg"
-                android:drawableStart="@drawable/ic_run_time"
+                android:drawableStart="@android:drawable/star_on"
                 android:drawablePadding="5dp"
+                android:drawableTint="#FFFF00"
                 android:gravity="center"
                 android:padding="@dimen/padding_10"
                 android:textAlignment="center"
-                android:textColor="@color/cardview_light_background"
+                android:textColor="#FFFF00"
                 android:textSize="15sp"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="UnusedAttribute" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_desc"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_title"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@drawable/gradient_bg"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHeight_percent="0.5"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:padding="@dimen/padding_10"
+                android:paddingStart="24dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/tv_rating"
+                tools:ignore="RtlSymmetry,UnusedAttribute" />
+
+            <TableRow
+                android:id="@+id/rl_genere"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="24dp"
+                android:gravity="start"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_rating"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="24dp"
-                    android:drawableStart="@android:drawable/star_on"
-                    android:drawablePadding="5dp"
-                    android:drawableTint="#FFFF00"
+                    android:layout_margin="@dimen/padding_10"
+                    android:background="@drawable/duration_bg"
                     android:gravity="center"
                     android:padding="@dimen/padding_10"
+                    android:text="@string/action"
                     android:textAlignment="center"
-                    android:textColor="#FFFF00"
+                    android:textColor="@color/cardview_light_background"
                     android:textSize="15sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="UnusedAttribute" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="3"
+                    android:layout_margin="@dimen/padding_10"
+                    android:background="@drawable/duration_bg"
+                    android:gravity="center"
                     android:padding="@dimen/padding_10"
-                    android:paddingStart="24dp"
-                    android:textAlignment="textStart"
+                    android:text="@string/adventure"
+                    android:textAlignment="center"
                     android:textColor="@color/cardview_light_background"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_rating"
-                    tools:ignore="RtlSymmetry,UnusedAttribute" />
-
-                <TableRow
-                    android:id="@+id/rl_genere"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="24dp"
-                    android:gravity="start"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:textSize="15sp"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_10"
-                        android:background="@drawable/duration_bg"
-                        android:gravity="center"
-                        android:padding="@dimen/padding_10"
-                        android:text="@string/action"
-                        android:textAlignment="center"
-                        android:textColor="@color/cardview_light_background"
-                        android:textSize="15sp"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="UnusedAttribute" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_10"
-                        android:background="@drawable/duration_bg"
-                        android:gravity="center"
-                        android:padding="@dimen/padding_10"
-                        android:text="@string/adventure"
-                        android:textAlignment="center"
-                        android:textColor="@color/cardview_light_background"
-                        android:textSize="15sp"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="UnusedAttribute" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_10"
-                        android:background="@drawable/duration_bg"
-                        android:gravity="center"
-                        android:padding="@dimen/padding_10"
-                        android:text="@string/revenge"
-                        android:textAlignment="center"
-                        android:textColor="@color/cardview_light_background"
-                        android:textSize="15sp"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="UnusedAttribute" />
-
-                </TableRow>
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UnusedAttribute" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_overview"
-                    android:layout_width="match_parent"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_10"
-                    android:ellipsize="end"
-                    android:maxLines="7"
-                    android:paddingStart="24dp"
-                    android:textAlignment="textStart"
+                    android:layout_margin="@dimen/padding_10"
+                    android:background="@drawable/duration_bg"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_10"
+                    android:text="@string/revenge"
+                    android:textAlignment="center"
                     android:textColor="@color/cardview_light_background"
-                    android:textSize="18sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rl_genere"
-                    tools:ignore="RtlSymmetry,UnusedAttribute" />
+                    android:textSize="15sp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UnusedAttribute" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </TableRow>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_10"
+                android:ellipsize="end"
+                android:maxLines="7"
+                android:paddingStart="24dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rl_genere"
+                tools:ignore="RtlSymmetry,UnusedAttribute" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
