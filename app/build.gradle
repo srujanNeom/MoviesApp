@@ -17,13 +17,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file("local.properties").newDataInputStream())
-
-        buildConfigField "String", "API_KEY", "\"${properties.getProperty("API_KEY")}\""
-        buildConfigField "String", "MOVIES_BASE_URL", "${properties.getProperty("MOVIES_BASE_URL")}"
-        buildConfigField "String", "IMAGE_BASE_URL", "${properties.getProperty("IMAGE_BASE_URL")}"
     }
 
     buildFeatures {
@@ -33,7 +26,16 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            buildConfigField "String", "API_KEY", "\"3b0d82708581b3d2bc0f3e3993510034\""
+            buildConfigField "String", "MOVIES_BASE_URL", "https://api.themoviedb.org/"
+            buildConfigField "String", "IMAGE_BASE_URL", "https://image.tmdb.org/t/p/original"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField "String", "API_KEY", "\"3b0d82708581b3d2bc0f3e3993510034\""
+            buildConfigField "String", "MOVIES_BASE_URL", "\"https://api.themoviedb.org/\""
+            buildConfigField "String", "IMAGE_BASE_URL", "\"https://image.tmdb.org/t/p/original\""
         }
     }
     compileOptions {
