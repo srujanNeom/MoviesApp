@@ -5,15 +5,15 @@ import com.example.moviesapp.network.MoviesApi
 import retrofit2.Response
 import javax.inject.Inject
 
-abstract class HomeRepository {
+abstract class MoviesListRepository {
 
     abstract suspend fun getAllMovies(): Response<MoviesInfo>
 
 }
 
-class HomeRepoImpl @Inject constructor(
+class MoviesListRepoImpl @Inject constructor(
     private val moviesApi: MoviesApi
-) : HomeRepository() {
+) : MoviesListRepository() {
     override suspend fun getAllMovies(): Response<MoviesInfo> =
         moviesApi.getPopularMovies()
 }

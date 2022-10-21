@@ -1,9 +1,10 @@
 package com.example.moviesapp.details.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.example.moviesapp.details.domain.MovieDetailsResult
+import com.example.moviesapp.details.domain.MovieDetailsUseCaseImpl
 import com.example.moviesapp.details.model.MovieDetails
-import com.example.moviesapp.details.viewmodel.DetailsUseCase.Result
-import com.example.moviesapp.details.repository.DetailsRepository
+import com.example.moviesapp.details.repository.MovieDetailsRepository
 import okhttp3.ResponseBody
 import org.junit.Assert.*
 import org.junit.Before
@@ -23,7 +24,7 @@ class DetailsUseCaseImplTest {
     val instantTaskRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var repository: DetailsRepository
+    private lateinit var repository: MovieDetailsRepository
 
     @Mock
     private lateinit var movieDetails: MovieDetails
@@ -31,19 +32,19 @@ class DetailsUseCaseImplTest {
     @Mock
     private lateinit var errorBody: ResponseBody
 
-    private lateinit var subject: DetailsUseCaseImpl
+    private lateinit var subject: MovieDetailsUseCaseImpl
 
     @Before
     fun setUp() {
-        subject = DetailsUseCaseImpl(repository)
+        subject = MovieDetailsUseCaseImpl(repository)
     }
 
     @Test
     fun `execute - success`() {
         suspend { givenRepository(Response.success(movieDetails)) }
         suspend { whenUseCaseIsExecuted() }
-        subject.liveData.value = Result.OnSuccess(movieDetails)
-        thenLiveDataShouldHaveCorrectValue(Result.OnSuccess(movieDetails))
+        subject.liveData.value = MovieDetailsResult.OnSuccess(movieDetails)
+        thenLiveDataShouldHaveCorrectValue(MovieDetailsResult.OnSuccess(movieDetails))
     }
 
     private suspend fun givenRepository(response: Response<MovieDetails>) {
@@ -54,7 +55,7 @@ class DetailsUseCaseImplTest {
         subject.getMovieDetails(23)
     }
 
-    private fun thenLiveDataShouldHaveCorrectValue(result: Result) {
+    private fun thenLiveDataShouldHaveCorrectValue(result: MovieDetailsResult) {
         assertEquals(subject.getLiveData().value, result)
     }
 
@@ -62,8 +63,8 @@ class DetailsUseCaseImplTest {
     fun `execute - error`() {
         suspend { givenRepository(Response.error(201, errorBody)) }
         suspend { whenUseCaseIsExecuted() }
-        subject.liveData.value = Result.OnError
-        thenLiveDataShouldHaveCorrectValue(Result.OnError)
+        subject.liveData.value = MovieDetailsResult.OnError
+        thenLiveDataShouldHaveCorrectValue(MovieDetailsResult.OnError)
     }
 
 }

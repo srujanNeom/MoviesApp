@@ -1,13 +1,15 @@
 package com.example.moviesapp.details.viewmodel
 
 import androidx.lifecycle.*
+import com.example.moviesapp.details.domain.MovieDetailsResult
+import com.example.moviesapp.details.domain.MovieDetailsUseCase
 import com.example.moviesapp.details.model.MovieDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailsViewModel @Inject constructor(private val detailsUseCase: DetailsUseCase) :
+class MovieDetailsViewModel @Inject constructor(private val detailsUseCase: MovieDetailsUseCase) :
     ViewModel() {
 
     val movieDetails = MediatorLiveData<MovieDetails>()
@@ -27,13 +29,13 @@ class DetailsViewModel @Inject constructor(private val detailsUseCase: DetailsUs
         }
     }
 
-    private fun onFetchMovieDetails(result: DetailsUseCase.Result?) {
+    private fun onFetchMovieDetails(result: MovieDetailsResult?) {
         when (result) {
-            is DetailsUseCase.Result.OnSuccess -> {
+            is MovieDetailsResult.OnSuccess -> {
                 movieDetails.value = result.moviesInfo
                 showLoading.value = false
             }
-            is DetailsUseCase.Result.OnError -> {
+            is MovieDetailsResult.OnError -> {
                 noMoviesFound.value = true
                 showLoading.value = false
             }

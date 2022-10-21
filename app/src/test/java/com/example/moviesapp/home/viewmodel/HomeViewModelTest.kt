@@ -4,6 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.example.moviesapp.home.domain.MoviesListResult
+import com.example.moviesapp.home.domain.MoviesListUseCase
 import com.example.moviesapp.home.model.MoviesInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -27,12 +29,13 @@ class HomeViewModelTest {
     private val dispatcher = TestCoroutineDispatcher()
 
     @Mock
-    private lateinit var homeUseCase: HomeUseCase
+    private lateinit var homeUseCase: MoviesListUseCase
 
     @Mock
     private lateinit var moviesObserver: Observer<MoviesInfo>
 
-    @Mock private lateinit var moviesInfo: MoviesInfo
+    @Mock
+    private lateinit var moviesInfo: MoviesInfo
 
     @Mock
     private lateinit var errorObserver: Observer<Boolean>
@@ -40,18 +43,18 @@ class HomeViewModelTest {
     @Mock
     private lateinit var loadingObserver: Observer<Boolean>
 
-    private lateinit var subject: HomeViewModel
+    private lateinit var subject: MoviesListViewModel
 
     private val moviesData: MediatorLiveData<MoviesInfo> = MediatorLiveData()
     private val error: MediatorLiveData<Boolean> = MediatorLiveData()
     private val loader: MediatorLiveData<Boolean> = MediatorLiveData()
-    private val fetchMoviesUseCaseLiveData: MutableLiveData<HomeUseCase.Result> = MutableLiveData()
+    private val fetchMoviesUseCaseLiveData: MutableLiveData<MoviesListResult> = MutableLiveData()
 
     @Before
     fun setUp() {
         Dispatchers.setMain(dispatcher)
         setUpLiveData()
-        subject = HomeViewModel(homeUseCase)
+        subject = MoviesListViewModel(homeUseCase)
     }
 
     @After
@@ -96,17 +99,17 @@ class HomeViewModelTest {
 
     @Test
     fun `fetchMovies - success`() {
-        whenFetchedMemesHasResult(HomeUseCase.Result.OnSuccess(moviesInfo))
+        whenFetchedMemesHasResult(MoviesListResult.OnSuccess(moviesInfo))
         thenObserverShouldReceiveMoviesStates(moviesObserver)
     }
 
-    private fun whenFetchedMemesHasResult(result: HomeUseCase.Result) {
+    private fun whenFetchedMemesHasResult(result: MoviesListResult) {
         fetchMoviesUseCaseLiveData.value = result
     }
 
     @Test
     fun `fetchMemes - error`() {
-        whenFetchedMemesHasResult(HomeUseCase.Result.OnError)
+        whenFetchedMemesHasResult(MoviesListResult.OnError)
         thenObserverShouldReceiveCorrectStates(errorObserver)
     }
 

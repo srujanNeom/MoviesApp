@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.moviesapp.databinding.FragmentDetailsBinding
 import com.example.moviesapp.details.model.MovieDetails
 import com.example.moviesapp.utils.Constants.Companion.IMAGE_BASE_URL
-import com.example.moviesapp.details.viewmodel.DetailsViewModel
+import com.example.moviesapp.details.viewmodel.MovieDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.fragment.navArgs
 
@@ -20,7 +20,7 @@ import androidx.navigation.fragment.navArgs
 class DetailsFragment : Fragment() {
 
     private lateinit var detailsBinding: FragmentDetailsBinding
-    private val viewModel by viewModels<DetailsViewModel>()
+    private val viewModel by viewModels<MovieDetailsViewModel>()
     private var selectedMovieId: Int = 0
     private val safeArgs: DetailsFragmentArgs by navArgs()
 

@@ -1,9 +1,10 @@
 package com.example.moviesapp.home.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.example.moviesapp.home.domain.MoviesListResult
 import com.example.moviesapp.home.model.MoviesInfo
-import com.example.moviesapp.home.viewmodel.HomeUseCase.Result
-import com.example.moviesapp.home.repository.HomeRepository
+import com.example.moviesapp.home.domain.MoviesListUseCaseImpl
+import com.example.moviesapp.home.repository.MoviesListRepository
 import okhttp3.ResponseBody
 import org.junit.Assert.*
 import org.junit.Before
@@ -22,7 +23,7 @@ class HomeUseCaseImplTest {
     val instantTaskRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var repository: HomeRepository
+    private lateinit var repository: MoviesListRepository
 
     @Mock
     private lateinit var moviesInfo: MoviesInfo
@@ -30,19 +31,19 @@ class HomeUseCaseImplTest {
     @Mock
     private lateinit var errorBody: ResponseBody
 
-    private lateinit var subject: HomeUseCaseImpl
+    private lateinit var subject: MoviesListUseCaseImpl
 
     @Before
     fun setUp() {
-        subject = HomeUseCaseImpl(repository)
+        subject = MoviesListUseCaseImpl(repository)
     }
 
     @Test
     fun `execute - success`() {
         suspend { givenRepository(Response.success(moviesInfo)) }
         suspend { whenUseCaseIsExecuted() }
-        subject.liveData.value = Result.OnSuccess(moviesInfo)
-        thenLiveDataShouldHaveCorrectValue(Result.OnSuccess(moviesInfo))
+        subject.liveData.value = MoviesListResult.OnSuccess(moviesInfo)
+        thenLiveDataShouldHaveCorrectValue(MoviesListResult.OnSuccess(moviesInfo))
     }
 
     private suspend fun givenRepository(response: Response<MoviesInfo>) {
@@ -53,7 +54,7 @@ class HomeUseCaseImplTest {
         subject.fetchAllMovies()
     }
 
-    private fun thenLiveDataShouldHaveCorrectValue(result: Result) {
+    private fun thenLiveDataShouldHaveCorrectValue(result: MoviesListResult) {
         assertEquals(subject.getLiveData().value, result)
     }
 
@@ -61,7 +62,7 @@ class HomeUseCaseImplTest {
     fun `execute - error`() {
         suspend { givenRepository(Response.error(201, errorBody)) }
         suspend { whenUseCaseIsExecuted() }
-        subject.liveData.value = Result.OnError
-        thenLiveDataShouldHaveCorrectValue(Result.OnError)
+        subject.liveData.value = MoviesListResult.OnError
+        thenLiveDataShouldHaveCorrectValue(MoviesListResult.OnError)
     }
 }

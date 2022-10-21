@@ -1,13 +1,15 @@
 package com.example.moviesapp.home.viewmodel
 
 import androidx.lifecycle.*
+import com.example.moviesapp.home.domain.MoviesListUseCase
+import com.example.moviesapp.home.domain.MoviesListResult
 import com.example.moviesapp.home.model.MoviesInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase) :
+class MoviesListViewModel @Inject constructor(private val homeUseCase: MoviesListUseCase) :
     ViewModel() {
 
     val popularMovies = MediatorLiveData<MoviesInfo>()
@@ -26,13 +28,13 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase) :
         }
     }
 
-    private fun onFetchMovieResult(result: HomeUseCase.Result?) {
+    private fun onFetchMovieResult(result: MoviesListResult?) {
         when (result) {
-            is HomeUseCase.Result.OnSuccess -> {
+            is MoviesListResult.OnSuccess -> {
                 popularMovies.value = result.moviesInfo
                 showLoading.value = false
             }
-            is HomeUseCase.Result.OnError -> {
+            is MoviesListResult.OnError -> {
                 noMoviesFound.value = true
                 showLoading.value = false
             }

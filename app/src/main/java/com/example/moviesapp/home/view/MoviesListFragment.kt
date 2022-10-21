@@ -9,19 +9,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.moviesapp.databinding.FragmentHomeBinding
+import com.example.moviesapp.databinding.FragmentMoviesListBinding
 import com.example.moviesapp.home.adapter.MovieAdapter
-import com.example.moviesapp.home.viewmodel.HomeViewModel
+import com.example.moviesapp.home.viewmodel.MoviesListViewModel
 import com.example.moviesapp.utils.OnItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class MoviesListFragment : Fragment() {
 
-    private lateinit var homeBinding: FragmentHomeBinding
+    private lateinit var homeBinding: FragmentMoviesListBinding
 
     private lateinit var adapter: MovieAdapter
-    private val viewModel by viewModels<HomeViewModel>()
+    private val viewModel: MoviesListViewModel by viewModels()
 
     private fun showProgressBar() {
         homeBinding.homeProgressBar.visibility = View.VISIBLE
@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        homeBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        homeBinding = FragmentMoviesListBinding.inflate(inflater, container, false)
 
         return homeBinding.root
     }
@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
         adapter = MovieAdapter(requireContext(), object :
             OnItemClickListener {
             override fun onItemClick(movieId: Int) {
-                val directions = HomeFragmentDirections.actionHomeToDetails(movieId = movieId)
+                val directions = MoviesListFragmentDirections.actionHomeToDetails(movieId = movieId)
                 findNavController().navigate(directions)
             }
         })
