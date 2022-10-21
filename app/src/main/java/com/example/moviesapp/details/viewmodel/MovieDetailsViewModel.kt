@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.example.moviesapp.details.domain.MovieDetailsResult
 import com.example.moviesapp.details.domain.MovieDetailsUseCase
 import com.example.moviesapp.details.model.MovieDetails
+import com.example.moviesapp.details.model.MovieDetailsModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -12,7 +13,7 @@ import javax.inject.Inject
 class MovieDetailsViewModel @Inject constructor(private val detailsUseCase: MovieDetailsUseCase) :
     ViewModel() {
 
-    val movieDetails = MediatorLiveData<MovieDetails>()
+    val movieDetails = MediatorLiveData<MovieDetailsModel>()
     val noMoviesFound = MediatorLiveData<Boolean>()
     val showLoading = MediatorLiveData<Boolean>()
 

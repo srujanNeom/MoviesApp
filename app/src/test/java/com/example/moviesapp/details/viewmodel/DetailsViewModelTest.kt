@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import com.example.moviesapp.details.domain.MovieDetailsResult
 import com.example.moviesapp.details.domain.MovieDetailsUseCase
 import com.example.moviesapp.details.model.MovieDetails
+import com.example.moviesapp.details.model.MovieDetailsModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -29,7 +30,7 @@ class DetailsViewModelTest {
     private val dispatcher = TestCoroutineDispatcher()
 
     @Mock
-    private lateinit var movieInfo: MovieDetails
+    private lateinit var movieInfo: MovieDetailsModel
 
     @Mock
     private lateinit var detailsUseCase: MovieDetailsUseCase
@@ -94,7 +95,7 @@ class DetailsViewModelTest {
         BDDMockito.then(data).shouldHaveNoMoreInteractions()
     }
 
-    private suspend fun thenUseCaseShouldBeExecuted() {
+    private fun thenUseCaseShouldBeExecuted() {
         detailsUseCase.getMovieDetails(23)
     }
 

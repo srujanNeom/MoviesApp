@@ -10,11 +10,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.moviesapp.databinding.FragmentDetailsBinding
-import com.example.moviesapp.details.model.MovieDetails
 import com.example.moviesapp.utils.Constants.Companion.IMAGE_BASE_URL
 import com.example.moviesapp.details.viewmodel.MovieDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.fragment.navArgs
+import com.example.moviesapp.details.model.MovieDetailsModel
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
@@ -70,7 +70,7 @@ class DetailsFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun populateMovieData(moviesResponse: MovieDetails) {
+    private fun populateMovieData(moviesResponse: MovieDetailsModel) {
         detailsBinding.tvDuration.text = "${moviesResponse.runtime} minutes"
         detailsBinding.tvOverview.text = moviesResponse.overview
         detailsBinding.tvTitle.text = moviesResponse.original_title
