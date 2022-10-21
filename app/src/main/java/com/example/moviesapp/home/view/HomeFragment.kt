@@ -67,11 +67,10 @@ class HomeFragment : Fragment() {
 
     private fun setUpViewModelStateObservers() {
         viewModel.showLoading.observe(viewLifecycleOwner) {
-            if (it) {
+            if (it)
                 showProgressBar()
-            } else {
+            else
                 hideProgressBar()
-            }
         }
 
         viewModel.noMoviesFound.observe(viewLifecycleOwner) {
