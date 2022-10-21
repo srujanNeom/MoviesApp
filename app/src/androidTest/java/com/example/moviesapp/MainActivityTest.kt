@@ -25,6 +25,6 @@ class MainActivityTest {
 
     @Test
     fun showHomeFragment() {
-        onView(withId(R.id.main_frame)).check(matches(isCompletelyDisplayed()))
+        onView(withId(R.id.nav_host_fragment)).check(matches(isCompletelyDisplayed()))
     }
 }

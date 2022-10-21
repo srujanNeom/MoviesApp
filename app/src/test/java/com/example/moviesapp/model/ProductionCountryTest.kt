@@ -1,5 +1,6 @@
 package com.example.moviesapp.model
 
+import com.example.moviesapp.details.model.ProductionCountry
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 

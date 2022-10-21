@@ -1,7 +1,7 @@
 package com.example.moviesapp.network
 
-import com.example.moviesapp.model.MovieDetails
-import com.example.moviesapp.model.MoviesInfo
+import com.example.moviesapp.details.model.MovieDetails
+import com.example.moviesapp.home.model.MoviesInfo
 import com.example.moviesapp.utils.Constants.Companion.API_KEY
 import com.example.moviesapp.utils.Constants.Companion.MOVIE_DETAILS_END_POINT
 import com.example.moviesapp.utils.Constants.Companion.POPULAR_MOVIES_END_POINT
