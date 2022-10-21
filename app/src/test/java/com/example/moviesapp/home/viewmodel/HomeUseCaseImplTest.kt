@@ -1,11 +1,13 @@
 package com.example.moviesapp.home.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.example.moviesapp.home.domain.MoviesListMapper
 import com.example.moviesapp.home.domain.MoviesListResult
 import com.example.moviesapp.home.model.MoviesInfo
 import com.example.moviesapp.home.domain.MoviesListUseCaseImpl
+import com.example.moviesapp.home.model.MoviesListModel
 import com.example.moviesapp.home.repository.MoviesListRepository
-import okhttp3.ResponseBody
+import io.reactivex.Single
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -14,7 +16,6 @@ import org.junit.runner.RunWith
 import org.mockito.BDDMockito
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import retrofit2.Response
 
 @RunWith(MockitoJUnitRunner::class)
 class HomeUseCaseImplTest {
@@ -29,28 +30,34 @@ class HomeUseCaseImplTest {
     private lateinit var moviesInfo: MoviesInfo
 
     @Mock
-    private lateinit var errorBody: ResponseBody
+    lateinit var movies: List<MoviesListModel>
 
     private lateinit var subject: MoviesListUseCaseImpl
 
+    @Mock
+    private lateinit var throwable: Throwable
+
+    @Mock
+    private lateinit var mapper: MoviesListMapper
+
     @Before
     fun setUp() {
-        subject = MoviesListUseCaseImpl(repository)
+        subject = MoviesListUseCaseImpl(repository, mapper)
     }
 
     @Test
     fun `execute - success`() {
-        suspend { givenRepository(Response.success(moviesInfo)) }
+        suspend { givenRepository(Single.just(moviesInfo)) }
         suspend { whenUseCaseIsExecuted() }
-        subject.liveData.value = MoviesListResult.OnSuccess(moviesInfo)
-        thenLiveDataShouldHaveCorrectValue(MoviesListResult.OnSuccess(moviesInfo))
+        subject.liveData.value = MoviesListResult.OnSuccess(movies)
+        thenLiveDataShouldHaveCorrectValue(MoviesListResult.OnSuccess(movies))
     }
 
-    private suspend fun givenRepository(response: Response<MoviesInfo>) {
-        BDDMockito.given(repository.getAllMovies()).willReturn(response)
+    private fun givenRepository(single: Single<MoviesInfo>) {
+        BDDMockito.given(repository.getAllMovies()).willReturn(single)
     }
 
-    private suspend fun whenUseCaseIsExecuted() {
+    private fun whenUseCaseIsExecuted() {
         subject.fetchAllMovies()
     }
 
@@ -60,7 +67,7 @@ class HomeUseCaseImplTest {
 
     @Test
     fun `execute - error`() {
-        suspend { givenRepository(Response.error(201, errorBody)) }
+        suspend { givenRepository(Single.error(throwable)) }
         suspend { whenUseCaseIsExecuted() }
         subject.liveData.value = MoviesListResult.OnError
         thenLiveDataShouldHaveCorrectValue(MoviesListResult.OnError)

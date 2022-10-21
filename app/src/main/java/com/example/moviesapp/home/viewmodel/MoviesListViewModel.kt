@@ -3,7 +3,7 @@ package com.example.moviesapp.home.viewmodel
 import androidx.lifecycle.*
 import com.example.moviesapp.home.domain.MoviesListUseCase
 import com.example.moviesapp.home.domain.MoviesListResult
-import com.example.moviesapp.home.model.MoviesInfo
+import com.example.moviesapp.home.model.MoviesListModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class MoviesListViewModel @Inject constructor(private val homeUseCase: MoviesListUseCase) :
     ViewModel() {
 
-    val popularMovies = MediatorLiveData<MoviesInfo>()
+    val popularMovies = MediatorLiveData<List<MoviesListModel>>()
     val noMoviesFound = MediatorLiveData<Boolean>()
     val showLoading = MediatorLiveData<Boolean>()
 

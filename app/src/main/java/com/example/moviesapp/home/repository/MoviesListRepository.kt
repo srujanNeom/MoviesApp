@@ -2,18 +2,18 @@ package com.example.moviesapp.home.repository
 
 import com.example.moviesapp.home.model.MoviesInfo
 import com.example.moviesapp.network.MoviesApi
-import retrofit2.Response
+import io.reactivex.Single
 import javax.inject.Inject
 
 abstract class MoviesListRepository {
 
-    abstract suspend fun getAllMovies(): Response<MoviesInfo>
+    abstract fun getAllMovies(): Single<MoviesInfo>
 
 }
 
 class MoviesListRepoImpl @Inject constructor(
     private val moviesApi: MoviesApi
 ) : MoviesListRepository() {
-    override suspend fun getAllMovies(): Response<MoviesInfo> =
+    override fun getAllMovies(): Single<MoviesInfo> =
         moviesApi.getPopularMovies()
 }

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.moviesapp.home.domain.MoviesListResult
 import com.example.moviesapp.home.domain.MoviesListUseCase
-import com.example.moviesapp.home.model.MoviesInfo
+import com.example.moviesapp.home.model.MoviesListModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -32,10 +32,10 @@ class HomeViewModelTest {
     private lateinit var homeUseCase: MoviesListUseCase
 
     @Mock
-    private lateinit var moviesObserver: Observer<MoviesInfo>
+    private lateinit var moviesObserver: Observer<List<MoviesListModel>>
 
     @Mock
-    private lateinit var moviesInfo: MoviesInfo
+    private lateinit var moviesInfo: List<MoviesListModel>
 
     @Mock
     private lateinit var errorObserver: Observer<Boolean>
@@ -45,7 +45,7 @@ class HomeViewModelTest {
 
     private lateinit var subject: MoviesListViewModel
 
-    private val moviesData: MediatorLiveData<MoviesInfo> = MediatorLiveData()
+    private val moviesData: MediatorLiveData<List<MoviesListModel>> = MediatorLiveData()
     private val error: MediatorLiveData<Boolean> = MediatorLiveData()
     private val loader: MediatorLiveData<Boolean> = MediatorLiveData()
     private val fetchMoviesUseCaseLiveData: MutableLiveData<MoviesListResult> = MutableLiveData()
@@ -89,7 +89,7 @@ class HomeViewModelTest {
         BDDMockito.then(loading).shouldHaveNoMoreInteractions()
     }
 
-    private fun thenObserverShouldReceiveMoviesStates(data: Observer<MoviesInfo>) {
+    private fun thenObserverShouldReceiveMoviesStates(data: Observer<List<MoviesListModel>>) {
         BDDMockito.then(data).shouldHaveNoMoreInteractions()
     }
 

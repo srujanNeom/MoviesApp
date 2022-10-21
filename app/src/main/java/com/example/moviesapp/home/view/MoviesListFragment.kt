@@ -78,7 +78,7 @@ class MoviesListFragment : Fragment() {
         }
 
         viewModel.popularMovies.observe(viewLifecycleOwner) {
-            adapter.differ.submitList(it.results)
+            adapter.differ.submitList(it)
         }
     }
 }

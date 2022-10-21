@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviesapp.databinding.MoviesItemBinding
-import com.example.moviesapp.home.model.MovieInfoModel
+import com.example.moviesapp.home.model.MoviesListModel
 import com.example.moviesapp.utils.Constants.Companion.IMAGE_BASE_URL
 import com.example.moviesapp.utils.OnItemClickListener
 
@@ -31,7 +31,7 @@ class MovieAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.itemView.setOnClickListener {
-            listener.onItemClick(differ.currentList[position].id!!)
+            listener.onItemClick(differ.currentList[position].id)
         }
 
         Glide.with(context)
@@ -45,12 +45,15 @@ class MovieAdapter(
         return differ.currentList.size
     }
 
-    private val differCallback = object : DiffUtil.ItemCallback<MovieInfoModel>() {
-        override fun areItemsTheSame(oldItem: MovieInfoModel, newItem: MovieInfoModel): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<MoviesListModel>() {
+        override fun areItemsTheSame(oldItem: MoviesListModel, newItem: MoviesListModel): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: MovieInfoModel, newItem: MovieInfoModel): Boolean {
+        override fun areContentsTheSame(
+            oldItem: MoviesListModel,
+            newItem: MoviesListModel
+        ): Boolean {
             return oldItem == newItem
         }
 

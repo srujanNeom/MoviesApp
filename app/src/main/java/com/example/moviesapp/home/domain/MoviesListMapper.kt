@@ -2,8 +2,9 @@ package com.example.moviesapp.home.domain
 
 import com.example.moviesapp.home.model.MoviesInfo
 import com.example.moviesapp.home.model.MoviesListModel
+import javax.inject.Inject
 
-class MoviesListMapper {
+class MoviesListMapper @Inject constructor() {
     fun map(dtm: MoviesInfo): List<MoviesListModel> {
         return dtm.results.map {
             MoviesListModel(
