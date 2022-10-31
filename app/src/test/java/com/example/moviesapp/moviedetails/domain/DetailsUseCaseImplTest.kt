@@ -1,4 +1,4 @@
-package com.example.moviesapp.details.viewmodel
+package com.example.moviesapp.moviedetails.domain
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.moviesapp.details.domain.MovieDetailsMapper
