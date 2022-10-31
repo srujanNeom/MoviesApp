@@ -1,9 +1,6 @@
-package com.example.moviesapp.moviedetails.domain
+package com.example.moviesapp.details.domain
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.moviesapp.details.domain.MovieDetailsMapper
-import com.example.moviesapp.details.domain.MovieDetailsResult
-import com.example.moviesapp.details.domain.MovieDetailsUseCaseImpl
 import com.example.moviesapp.details.model.MovieDetails
 import com.example.moviesapp.details.model.MovieDetailsModel
 import com.example.moviesapp.details.repository.MovieDetailsRepository

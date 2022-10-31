@@ -1,4 +1,4 @@
-package com.example.moviesapp.moviedetails.viewmodel
+package com.example.moviesapp.details.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MediatorLiveData
@@ -7,7 +7,6 @@ import androidx.lifecycle.Observer
 import com.example.moviesapp.details.domain.MovieDetailsResult
 import com.example.moviesapp.details.domain.MovieDetailsUseCase
 import com.example.moviesapp.details.model.MovieDetailsModel
-import com.example.moviesapp.details.viewmodel.MovieDetailsViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain

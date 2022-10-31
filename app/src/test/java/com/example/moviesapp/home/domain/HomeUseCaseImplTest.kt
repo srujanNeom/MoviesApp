@@ -1,10 +1,7 @@
-package com.example.moviesapp.movieshome.domain
+package com.example.moviesapp.home.domain
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.moviesapp.home.domain.MoviesListMapper
-import com.example.moviesapp.home.domain.MoviesListResult
 import com.example.moviesapp.home.model.MoviesInfo
-import com.example.moviesapp.home.domain.MoviesListUseCaseImpl
 import com.example.moviesapp.home.model.MoviesListModel
 import com.example.moviesapp.home.repository.MoviesListRepository
 import io.reactivex.Single
